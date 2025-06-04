@@ -1,0 +1,19 @@
+[project]
+name = "quick-start"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Adrian Lyjak", email = "adrianlyjak@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "llama-deploy>=0.8.1",
+]
+
+[project.scripts]
+quick-start = "quick_start:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
