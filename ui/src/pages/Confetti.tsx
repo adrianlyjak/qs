@@ -1,38 +1,26 @@
-'use client';
-
-import { useEffect } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import confetti from 'canvas-confetti';
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import confetti from "canvas-confetti";
 
 export default function LlamaPartyPage() {
-  // Trigger confetti on page load
   useEffect(() => {
     const timer = setTimeout(() => {
       celebrate();
     }, 500);
-
     return () => clearTimeout(timer);
   }, []);
 
   const celebrate = () => {
-    // Fire confetti from both sides
-    confetti({
-      particleCount: 500,
-      spread: 90,
-      origin: { y: 0.6, x: 0.1 }
-    });
-    confetti({
-      particleCount: 500,
-      spread: 90,
-      origin: { y: 0.6, x: 0.9 }
-    });
+    confetti({ particleCount: 500, spread: 90, origin: { y: 0.6, x: 0.1 } });
+    confetti({ particleCount: 500, spread: 90, origin: { y: 0.6, x: 0.9 } });
   };
 
+  const basePath = import.meta.env.BASE_URL;
+
   return (
-    <div className="flex flex-col min-h-screen p-8 items-center justify-center font-[family-name:var(--font-geist-sans)]">
-      <Image
-        src={`${process.env.NEXT_PUBLIC_BASE_PATH}/logo-dark-light.svg`}
+    <div className="flex flex-col min-h-screen p-8 items-center justify-center font-sans">
+      <img
+        src={`${basePath}/logo-dark-light.svg`}
         alt="LlamaIndex logo"
         width={120}
         height={120}
@@ -44,15 +32,12 @@ export default function LlamaPartyPage() {
         <p className="text-gray-600 mb-6">You found the secret page!</p>
 
         <div className="flex flex-col gap-4">
-          <button
-            onClick={celebrate}
-            className="py-2 px-4 bg-foreground text-background rounded-md hover:opacity-80"
-          >
+          <button onClick={celebrate} className="py-2 px-4 bg-foreground text-background rounded-md hover:opacity-80">
             Celebrate again
           </button>
 
           <Link
-            href="/"
+            to="/"
             className="py-2 px-4 bg-white text-foreground border border-gray-300 rounded-md hover:bg-gray-50 text-center"
           >
             Back to workflow
@@ -62,3 +47,5 @@ export default function LlamaPartyPage() {
     </div>
   );
 }
+
+

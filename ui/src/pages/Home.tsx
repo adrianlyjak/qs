@@ -1,19 +1,15 @@
-"use client";
-
-import Image from "next/image";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const [inputText, setInputText] = useState("");
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
-
-  // Get deployment name from environment variable or use "default" as fallback
-  const deploymentName =
-    process.env.NEXT_PUBLIC_LLAMA_DEPLOY_NEXTJS_DEPLOYMENT_NAME || "default";
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const deploymentName =
+    import.meta.env.VITE_LLAMA_DEPLOY_DEPLOYMENT_NAME || "default";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,19 +17,16 @@ export default function Home() {
     setError("");
 
     try {
-      const response = await fetch(
-        `/deployments/${deploymentName}/tasks/run`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            service_id: null, // Using default service
-            input: JSON.stringify({ message: inputText }),
-          }),
+      const response = await fetch(`/deployments/${deploymentName}/tasks/run`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify({
+          service_id: null,
+          input: JSON.stringify({ message: inputText }),
+        }),
+      });
 
       if (!response.ok) {
         throw new Error(`API request failed with status ${response.status}`);
@@ -42,40 +35,35 @@ export default function Home() {
       const data = await response.json();
       setResult(JSON.stringify(data, null, 2));
     } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "An unknown error occurred",
-      );
+      setError(err instanceof Error ? err.message : "An unknown error occurred");
     } finally {
       setLoading(false);
     }
   };
 
+  const basePath = import.meta.env.BASE_URL;
+
   return (
-    <div className="flex flex-col min-h-screen p-6 sm:p-8 font-[family-name:var(--font-geist-sans)]">
+    <div className="flex flex-col min-h-screen p-6 sm:p-8 font-sans">
       <main className="flex-1 flex flex-col gap-8 items-center justify-center max-w-2xl mx-auto w-full">
         <button
-          onClick={() => router.push("/confetti")}
+          onClick={() => navigate("/confetti")}
           className="hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg cursor-pointer"
         >
-          <Image
+          <img
             className="w-full max-w-lg p-6"
-            src={`${process.env.NEXT_PUBLIC_BASE_PATH}/logo-dark-light.svg`}
+            src={`${basePath}/logo-dark-light.svg`}
             alt="LlamaIndex logo - Click for confetti!"
             width={180}
             height={180}
-            priority
           />
         </button>
 
-        {/* API Form */}
         <div className="w-full max-w-lg p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
           <h2 className="text-xl font-bold mb-4">Workflow Test</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label
-                htmlFor="deployment"
-                className="block text-sm font-medium mb-1"
-              >
+              <label htmlFor="deployment" className="block text-sm font-medium mb-1">
                 Deployment Name
               </label>
               <div className="w-full p-2 border rounded bg-gray-100 dark:bg-gray-700">
@@ -83,10 +71,7 @@ export default function Home() {
               </div>
             </div>
             <div>
-              <label
-                htmlFor="inputText"
-                className="block text-sm font-medium mb-1"
-              >
+              <label htmlFor="inputText" className="block text-sm font-medium mb-1">
                 Message
               </label>
               <textarea
@@ -108,17 +93,13 @@ export default function Home() {
           </form>
 
           {error && (
-            <div className="mt-4 p-3 bg-red-100 text-red-700 rounded-md">
-              {error}
-            </div>
+            <div className="mt-4 p-3 bg-red-100 text-red-700 rounded-md">{error}</div>
           )}
 
           {result && (
             <div className="mt-4">
               <h3 className="text-lg font-medium mb-2">Result:</h3>
-              <pre className="p-3 bg-gray-100 dark:bg-gray-700 rounded-md overflow-auto text-sm max-h-64">
-                {result}
-              </pre>
+              <pre className="p-3 bg-gray-100 dark:bg-gray-700 rounded-md overflow-auto text-sm max-h-64">{result}</pre>
             </div>
           )}
         </div>
@@ -131,9 +112,9 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Image
+          <img
             aria-hidden
-            src={`${process.env.NEXT_PUBLIC_BASE_PATH}/file.svg`}
+            src={`${basePath}/file.svg`}
             alt="File icon"
             width={16}
             height={16}
@@ -144,3 +125,5 @@ export default function Home() {
     </div>
   );
 }
+
+
