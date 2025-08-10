@@ -6,7 +6,7 @@ from workflows.events import StartEvent, StopEvent
 
 # create a dummy workflow
 class EchoWorkflow(Workflow):
-    """A dummy workflow with only one step sending back the input given."""
+    """A dummy workflow! with only one step sending back the input given."""
 
     @step()
     async def run_step(self, ev: StartEvent) -> StopEvent:
