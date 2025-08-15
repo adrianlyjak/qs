@@ -33,7 +33,7 @@ export default function Home() {
       }
 
       const data = await response.json();
-      setResult(JSON.stringify(data, null, 2));
+      setResult(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : "An unknown error occurred");
     } finally {

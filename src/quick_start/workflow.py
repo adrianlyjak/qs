@@ -2,16 +2,18 @@ import asyncio
 
 from workflows import Workflow, step
 from workflows.events import StartEvent, StopEvent
+from cowsay import cowsay
 
 
 # create a dummy workflow
 class EchoWorkflow(Workflow):
+
     """A dummy workflow! with only one step sending back the input given."""
 
     @step()
     async def run_step(self, ev: StartEvent) -> StopEvent:
         message = str(ev.get("message", ""))
-        return StopEvent(result=f"Message received: {message}")
+        return StopEvent(result=cowsay(message))
 
 
 echo_workflow = EchoWorkflow()

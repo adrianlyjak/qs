@@ -7,6 +7,10 @@ authors = [
     { name = "Adrian Lyjak", email = "adrianlyjak@gmail.com" }
 ]
 requires-python = ">=3.12"
+dependencies = [
+    "llama-deploy-appserver",
+    "python-cowsay>=1.2.1",
+]
 
 [project.scripts]
 quick-start = "quick_start:main"
@@ -14,3 +18,11 @@ quick-start = "quick_start:main"
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "llamactl>=0.3.0a4",
+]
+
+[tool.uv.sources]
+llama-deploy-appserver = { path = "../cloud_llama_deploy/packages/llama-deploy-appserver" }
