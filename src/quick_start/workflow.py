@@ -13,7 +13,7 @@ class EchoWorkflow(Workflow):
     @step()
     async def run_step(self, ev: StartEvent) -> StopEvent:
         message = str(ev.get("message", ""))
-        return StopEvent(result=cowsay(message))
+        return StopEvent(result=cowsay(message + "!!!", cow="dragon"))
 
 
 echo_workflow = EchoWorkflow()
