@@ -135,7 +135,7 @@ dependencies = [
     { name = "fastapi" },
     { name = "httpx" },
     { name = "llama-deploy-core" },
-    { name = "llama-index-workflows" },
+    { name = "llama-index-workflows", extra = ["server"] },
     { name = "packaging" },
     { name = "prometheus-fastapi-instrumentator" },
     { name = "pydantic-settings" },
@@ -148,7 +148,7 @@ requires-dist = [
     { name = "fastapi", specifier = ">=0.100.0" },
     { name = "httpx", specifier = ">=0.28.1" },
     { name = "llama-deploy-core", editable = "../cloud_llama_deploy/packages/llama-deploy-core" },
-    { name = "llama-index-workflows", specifier = ">=1.1.0" },
+    { name = "llama-index-workflows", extras = ["server"], specifier = ">=1.3.0" },
     { name = "packaging", specifier = ">=25.0" },
     { name = "prometheus-fastapi-instrumentator", specifier = ">=7.1.0" },
     { name = "pydantic-settings", specifier = ">=2.10.1" },
@@ -206,6 +206,12 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/00/dc/54fd5dec0ad3c65f3e8a520db7a3024141b71cd41660d0baca3cd6b18707/llama_index_workflows-1.3.0.tar.gz", hash = "sha256:9c1688e237efad384f16485af71c6f9456a2eb6d85bf61ff49e5717f10ff286d", size = 1040839, upload-time = "2025-08-07T09:11:00.307Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/3b/cf/0c50bc6e5c4fb7913f5682a0d26a60b976533dd8a87a5dbd84f617c6f1ab/llama_index_workflows-1.3.0-py3-none-any.whl", hash = "sha256:328cc25d92b014ef527f105a2f2088c0924fff0494e53d93decb951f14fbfe47", size = 42527, upload-time = "2025-08-07T09:10:59.155Z" },
+]
+
+[package.optional-dependencies]
+server = [
+    { name = "starlette" },
+    { name = "uvicorn" },
 ]
 
 [[package]]
