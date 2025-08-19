@@ -5,7 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 authors = [{ name = "Adrian Lyjak", email = "adrianlyjak@gmail.com" }]
 requires-python = ">=3.12"
-dependencies = ["llama-deploy-appserver", "python-cowsay>=1.2.1"]
+dependencies = ["python-cowsay>=1.2.1"]
 
 [project.scripts]
 quick-start = "quick_start:main"
@@ -16,9 +16,6 @@ build-backend = "hatchling.build"
 
 [dependency-groups]
 dev = []
-
-[tool.uv.sources]
-llama-deploy-appserver = { path = "../cloud_llama_deploy/packages/llama-deploy-appserver" }
 
 [tool.llamadeploy]
 workflows = { "default" = "quick_start.workflow:echo_workflow" }
