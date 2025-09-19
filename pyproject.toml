@@ -40,3 +40,5 @@ env-files = [".env"]
 [tool.llamadeploy.workflows]
 default = "app.workflow:workflow"
 
+[tool.llamadeploy.ui]
+directory = ui
