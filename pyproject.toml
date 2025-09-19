@@ -33,8 +33,6 @@ test = "pytest"
 "all-check" = ["format-check", "lint-check", "test"]
 "all-fix" = ["format", "lint", "test"]
 
-[tool.llamadeploy.ui]
-directory = "./ui"
 
 [tool.llamadeploy]
 env-files = [".env"]
